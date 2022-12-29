@@ -4,16 +4,19 @@ import React, { useState, useRef } from "react";
 const Timer = () => {
 
 
-  const [time, setTime] = useState(25 * 60 * 60 * 1000);
-  const [sessionLeft, setSessionLeft] = useState(25);
+  // const [time, setTime] = useState(25 * 60 * 60 * 1000);
+  // const [minutes, setMinutes] = useState(0);
+  // const [seconds, setSeconds] = useState(0);
+  let minutes, seconds;
+  const [sessionLeft, setSessionLeft] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
 
   let timeInterval = useRef(null);
 
   const handlePlayPause = () => {
     if (!isRunning) {
-      setSessionLeft(sessionLeft * 60 * 1000);
-      timerCalculation();
+      // setSessionLeft(sessionLeft * 60 * 60);
+      timerCalculation(sessionLeft);
     } else if (isRunning) {
       pauseTimer();
     }
@@ -21,12 +24,24 @@ const Timer = () => {
   }
 
   // Timer Calculation
-  const timerCalculation = () => {
+  const timerCalculation = (sessionLeft) => {
     setIsRunning(true);
     timeInterval.current = setInterval(() => {
-      let value = convertToMinutes(sessionLeft);
-      // console.log(value, sessionLeft);
-      setTime(sessionLeft => sessionLeft - 1000);
+      // console.log(sessionLeft)
+      [minutes, seconds] = convertToMinutes(sessionLeft);
+
+      console.log(minutes, seconds, sessionLeft);
+
+
+      for (let i = 0; i <= minutes; i--) {
+        if (seconds < 60) {
+          seconds = seconds + 1
+        }
+      }
+
+
+      console.log(seconds);
+      // setSessionLeft(sessionLeft => sessionLeft - 1000);
 
     }, 1000);
 
@@ -42,16 +57,30 @@ const Timer = () => {
 
   const resetTimer = () => {
     clearInterval(timeInterval.current);
-    setTime(0)
   }
 
-  let convertToMinutes = (time) => {
-    const minutes = Math.floor(time % 3600 / 60).toString().padStart(2, "0");
-    const seconds = Math.floor(time % 60).toString().padStart(2, "0");
+  let convertToMinutes = (sessionLeft) => {
+
+    console.log(sessionLeft)
+    // setMinutes(Math.floor(sessionLeft % 3600 / 60));
+    // setSeconds(Math.floor(sessionLeft % 60));
+
+    minutes = Math.floor(sessionLeft % 3600 / 60);
+    seconds = Math.floor(sessionLeft % 60);
+
+    // setMinutes(50000)
+    // setSeconds(500000);
+    // setIsRunning(true)
+
     // return minutes.substr(-2) + ":" + seconds.substr(-2);
 
-    console.log(minutes, seconds);
-    return `${minutes}: ${seconds}`;
+    // console.log(min, sec, isRunning);
+
+    // console.log(minutes, seconds);
+    return [minutes, seconds]
+
+    // console.log(m + ':' + s);
+    // return `${minutes}: ${seconds}`;
 
   }
 
@@ -61,7 +90,7 @@ const Timer = () => {
       <h2>
         Time
       </h2>
-      <h2>  {sessionLeft}</h2>
+      <h2>  {minutes} {seconds}</h2>
 
       <button onClick={handlePlayPause}>Start</button>
 
