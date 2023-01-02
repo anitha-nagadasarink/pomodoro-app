@@ -1,3 +1,9 @@
+// Om Ganapathi Siddhi Buddhi
+// Omshakthiamma Shivappa
+// Vishnu Lakshmi
+// Brahama Saraswathi Dakshinamurthy Haygriva
+// Sri Venkateshwara Sri Vidya Vijaya Gnana dhyrya Aurogya Samayaspoorthi Lakshmi Devi
+
 
 import React, { useState, useRef } from "react";
 
@@ -14,12 +20,12 @@ const Timer = () => {
   let timeInterval = useRef(null);
 
   const handlePlayPause = () => {
-    if (!isRunning) {
-      // setSessionLeft(sessionLeft * 60 * 60);
-      timerCalculation(sessionLeft);
-    } else if (isRunning) {
-      pauseTimer();
-    }
+    // if (!isRunning) {
+    //   // setSessionLeft(sessionLeft * 60 * 60);
+    //   timerCalculation(sessionLeft);
+    // } else if (isRunning) {
+    //   pauseTimer();
+    // }
     // timerCalculation();
   }
 
@@ -88,9 +94,9 @@ const Timer = () => {
   return (
     <section>
       <h2>
-        Time
+        Times
       </h2>
-      <h2>  {minutes} {seconds}</h2>
+      <h2>  {sessionLeft} React Much Easy to learn and Develop</h2>
 
       <button onClick={handlePlayPause}>Start</button>
 
